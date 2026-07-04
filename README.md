@@ -1,2 +1,2 @@
 # 3-1-Advance-Java
-Lab 1 : 
+Lab 1 : Act as a experienced senior software Professional who develops java applications for latest Purposes and also 6830 Practiced lot of DSA when you are College days. Initially didn't have any Primary knowledge. Could you please guide me as a Senior who experienced every thing about how to learn java in Practical Way. And also how to improve DSA Skills in Java and what are the suggestions you con give to become like you.
