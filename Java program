@@ -1,0 +1,95 @@
+import java.io.*;
+import java.net.*;
+import java.util.Scanner;
+
+public class SocketProgram {
+
+    // Server Class
+    static class Server {
+        public static void main(String[] args) throws Exception {
+            ServerSocket ss = new ServerSocket(5000);
+            System.out.println("Server Waiting...");
+
+            Socket s = ss.accept();
+
+            DataInputStream dis = new DataInputStream(s.getInputStream());
+            DataOutputStream dos = new DataOutputStream(s.getOutputStream());
+
+            String msg = dis.readUTF();
+            System.out.println("Client: " + msg);
+
+            if (msg.equalsIgnoreCase("HI")) {
+                Thread.sleep(5000);
+                dos.writeUTF("HELLO");
+            }
+
+            while (true) {
+                String op = dis.readUTF();
+                double a = dis.readDouble();
+                double b = dis.readDouble();
+
+                double ans = 0;
+
+                switch (op) {
+                    case "+": ans = a + b; break;
+                    case "-": ans = a - b; break;
+                    case "*": ans = a * b; break;
+                    case "/": ans = a / b; break;
+                }
+
+                dos.writeUTF("Result = " + ans);
+
+                String ch = dis.readUTF();
+                if (ch.equalsIgnoreCase("no"))
+                    break;
+            }
+
+            s.close();
+            ss.close();
+        }
+    }
+
+    // Client Class
+    static class Client {
+        public static void main(String[] args) throws Exception {
+
+            Socket s = new Socket("localhost", 5000);
+
+            DataInputStream dis = new DataInputStream(s.getInputStream());
+            DataOutputStream dos = new DataOutputStream(s.getOutputStream());
+
+            Scanner sc = new Scanner(System.in);
+
+            dos.writeUTF("HI");
+
+            System.out.println(dis.readUTF());
+
+            String ch = "yes";
+
+            while (ch.equalsIgnoreCase("yes")) {
+
+                System.out.print("Operation (+,-,*,/): ");
+                String op = sc.next();
+
+                System.out.print("First Number: ");
+                double a = sc.nextDouble();
+
+                System.out.print("Second Number: ");
+                double b = sc.nextDouble();
+
+                dos.writeUTF(op);
+                dos.writeDouble(a);
+                dos.writeDouble(b);
+
+                System.out.println(dis.readUTF());
+
+                System.out.print("Continue (yes/no): ");
+                ch = sc.next();
+
+                dos.writeUTF(ch);
+            }
+
+            s.close();
+        }
+    }
+}
