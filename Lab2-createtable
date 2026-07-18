@@ -1,0 +1,34 @@
+                         Employees.java                                     
+import java.sql.*;
+
+public class Employees {
+    public static void main(String[] args) {
+        String url = "jdbc:mysql://localhost:3306/testdb";
+String user = "testuser";
+String password = "Test@12345"; // replace with your actual password
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            Connection con = DriverManager.getConnection(url, user, password);
+
+            Statement stmt = con.createStatement();
+
+            String createTable =
+                "CREATE TABLE Employee (" +
+                "empid INT PRIMARY KEY, " +
+                "empname VARCHAR(50), " +
+                "empsalary DOUBLE" +
+                ")";
+
+            stmt.executeUpdate(createTable);
+
+            System.out.println("Table created successfully.");
+
+            stmt.close();
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
