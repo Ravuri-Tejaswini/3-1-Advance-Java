@@ -32,3 +32,34 @@ String password = "Test@12345"; // replace with your actual password
         }
     }
 }
+
+OUTPUT :: 
+
+mysql> USE testdb;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> SHOW TABLES;
++------------------+
+| Tables_in_testdb |
++------------------+
+| Employee         |
+| employee         |
+| employee1        |
+| student          |
+| users            |
++------------------+
+5 rows in set (0.00 sec)
+
+mysql> DESC Employee;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| empid     | int         | NO   | PRI | NULL    |       |
+| empname   | varchar(50) | YES  |     | NULL    |       |
+| empsalary | double      | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+3 rows in set (0.02 sec)
+
+mysql> EXIT;
